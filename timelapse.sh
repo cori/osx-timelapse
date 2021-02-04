@@ -16,17 +16,11 @@ while true; do
 	for (( c=1; c<=$screen_count; c++ )); do
 		all_screens+=( "$output_folder/screen/$timestamp-screen-$c.png $screens" );
 	done
-	# screens=$(echo $screens|awk '{$1=$1};1')
 	screencapture -x ${all_screens[@]};
 
-    # For one screen:
-#    screencapture -t jpg -x "$output_folder/screen/screen1-$timestamp.jpg";
-    # For two screens:
-    # screencapture -x "$output_folder/screen/screen1-$timestamp.png" "$output_folder/screen/screen2-$timestamp.png";
-
-    # If you have a webcam, you might want to capture that too.
-	 webcam_count=$(imagesnap -l | grep "C920" | wc -l)
-	 if [[ $webcam_count -eq 1 ]]; then
+   # If you have a webcam, you might want to capture that too.
+	external_webcam_count=$(imagesnap -l | grep "C920" | wc -l)
+	 if [[ $external_webcam_count -eq 1 ]]; then
 		echo "Capturing external webcam at $timestamp"
 		 imagesnap -d "HD Pro Webcam C920" -q "$output_folder/webcam/$timestamp-webcam.jpg";
 	 else
@@ -34,7 +28,6 @@ while true; do
 		 imagesnap "$output_folder/webcam/$timestamp-webcaam.jpg";
 	 fi
 
-    # sleep 60;
 	 unset screens
    sleep 300;	#	5 mins
 done;
